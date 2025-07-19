@@ -6,9 +6,14 @@ function App() {
   const [jokes, setJokes] = useState(null);
 
   const fetchJokes = async () => {
-    const response = await fetch("https://official-joke-api.appspot.com/random_joke");
-    const data = await response.json();
-    setJokes(`${data.setup} ${data.punchline}`);
+    try{
+      const response = await fetch("https://official-joke-api.appspot.com/random_joke");
+      const data = await response.json();
+      setJokes(`${data.setup} ${data.punchline}`);
+    }catch (error) {
+      setJokes("something went wrong");
+    }
+
   }
 
   return (
