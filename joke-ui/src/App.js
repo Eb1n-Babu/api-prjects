@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from "react";
 
 function App() {
+
+  const [jokes, setJokes] = useState(null);
+
+  const fetchJokes = async () => {
+    const response = await fetch("https://official-joke-api.appspot.com/random_joke");
+    const data = await response.json();
+    setJokes(`${data.setup} ${data.punchline}`);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Jokes</h1>
+      <h1>{jokes}</h1>
+      <button onClick={fetchJokes}>onclick</button>
     </div>
   );
 }
