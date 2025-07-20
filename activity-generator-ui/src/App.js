@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [activity, setActivity] = useState(null);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(
+                'https://cors-anywhere.herokuapp.com/https://www.boredapi.com/api/activity/'
+            );
+            const data = await response.json();
+            setActivity(data.activity);
+        } catch (error) {
+            setActivity("Oops! Something went wrong 😅");
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    return (
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+            <h1>🌀 Random Activity</h1>
+            <h2>{activity}</h2>
+            <button onClick={fetchData} style={{ padding: '10px 20px', fontSize: '16px' }}>
+                Suggest Another
+            </button>
+        </div>
+    );
 }
 
 export default App;
