@@ -32,7 +32,7 @@ function App() {
                 placeholder='City'
                 value={city}
                 onChange={(event) => setCity(event.target.value)}
-            />
+            /><br/>
             <button onClick={fetchData}>Fetch Data</button>
 
             {data ? (
